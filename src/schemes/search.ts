@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SearchQueryParamsSchema = z.object({
+export const SearchRequestSchema = z.object({
   q: z.string(),
   fields: z.string().optional(),
   sort: z.string().optional(),
@@ -11,7 +11,7 @@ export const SearchQueryParamsSchema = z.object({
   page: z.number().optional(),
 });
 
-export const SearchDocumentSchema = z.object({
+export const SearchResponseDocumentSchema = z.object({
   cover_i: z.number().optional(),
   has_fulltext: z.boolean().optional(),
   edition_count: z.number().optional(),
@@ -27,9 +27,9 @@ export const SearchDocumentSchema = z.object({
 export const SearchResponseSchema = z.object({
   start: z.number(),
   num_found: z.number(),
-  docs: z.array(SearchDocumentSchema),
+  docs: z.array(SearchResponseDocumentSchema),
 });
 
 export type SearchResponse = z.infer<typeof SearchResponseSchema>;
-export type SearchQueryParams = z.infer<typeof SearchQueryParamsSchema>;
-export type SearchDocument = z.infer<typeof SearchDocumentSchema>;
+export type SearchRequest = z.infer<typeof SearchRequestSchema>;
+export type SearchResponseDocument = z.infer<typeof SearchResponseDocumentSchema>;

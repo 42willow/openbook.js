@@ -1,14 +1,11 @@
 import axios, { AxiosInstance } from "axios";
-import { WorkSchema, Work } from "../schemes/work";
-import { BookSchema, Book } from "../schemes/book";
+import { WorkSchema, Work } from "./schemes/work";
+import { BookSchema, Book } from "./schemes/book";
 import {
-  SearchDocument,
-  SearchDocumentSchema,
-  SearchQueryParams,
-  SearchQueryParamsSchema,
+  SearchRequest,
   SearchResponse,
   SearchResponseSchema,
-} from "../schemes/searchQuery";
+} from "./schemes/search";
 export class OpenLibraryClient {
   private client: AxiosInstance;
 
@@ -45,8 +42,10 @@ export class OpenLibraryClient {
     return BookSchema.parse(data);
   }
 
-  async search(params: SearchQueryParams): Promise<SearchResponse> {
-    const data = await this.request<any>(`/search.json?${new URLSearchParams(params as any)}`);
+  async search(params: SearchRequest): Promise<SearchResponse> {
+    const data = await this.request<any>(
+      `/search.json?${new URLSearchParams(params as any)}`
+    );
     return SearchResponseSchema.parse(data);
   }
 }
