@@ -36,6 +36,17 @@ console.log(workEditions.links); // Pagination links
 // Get a specific edition
 const edition = await client.getEdition('OL7353617M');
 console.log(edition.title);
+
+// Get author information
+const author = await client.getAuthor('OL23919A');
+console.log(author.name); // "J. K. Rowling"
+console.log(author.bio?.value); // Author biography
+
+// Get all works by an author
+const authorWorks = await client.getAuthorWorks('OL23919A');
+console.log(authorWorks.entries); // Array of works
+console.log(authorWorks.size); // Total number of works
+console.log(authorWorks.links); // Pagination links
 ```
 
 ## API
@@ -69,6 +80,23 @@ Get all editions of a specific work by its Open Library ID. Returns an object co
 
 Get a specific edition by its Open Library ID.
 
+#### `getAuthor(id: string): Promise<Author>`
+
+Get author information by their Open Library ID. Returns detailed information including:
+- `name`: Author's name
+- `bio`: Biography object with `type` and `value` properties
+- `birth_date`: Birth date string
+- `death_date`: Death date string (if applicable)
+- `personal_name`: Personal name
+- `alternate_names`: Array of alternate names
+
+#### `getAuthorWorks(id: string): Promise<AuthorWorksResponse>`
+
+Get all works by a specific author by their Open Library ID. Returns an object containing:
+- `entries`: Array of `AuthorWorkEntry` objects
+- `size`: Total number of works by the author
+- `links`: Pagination links for additional results
+
 ## Types
 
 The library exports TypeScript types for all API responses:
@@ -79,6 +107,9 @@ The library exports TypeScript types for all API responses:
 - `WorkEdition` - An edition within a work's editions response
 - `WorkEditionResponse` - Response containing work editions with pagination
 - `Edition` - A standalone edition object
+- `Author` - An author object with biographical information
+- `AuthorWorkEntry` - A work entry within an author's works response
+- `AuthorWorksResponse` - Response containing author works with pagination
 
 ## License
 
