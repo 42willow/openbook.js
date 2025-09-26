@@ -9,7 +9,10 @@ export declare const WorkSchema: z.ZodObject<{
         }, z.core.$strip>;
     }, z.core.$strip>>>;
     covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
-    description: z.ZodOptional<z.ZodString>;
+    description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
+        type: z.ZodString;
+        value: z.ZodString;
+    }, z.core.$strip>]>>;
     subject_places: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_times: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_people: z.ZodOptional<z.ZodArray<z.ZodString>>;

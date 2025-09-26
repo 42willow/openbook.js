@@ -14,7 +14,15 @@ exports.WorkSchema = zod_1.z.object({
     }))
         .optional(),
     covers: zod_1.z.array(zod_1.z.number()).optional(),
-    description: zod_1.z.string().optional(),
+    description: zod_1.z
+        .union([
+        zod_1.z.string(),
+        zod_1.z.object({
+            type: zod_1.z.string(),
+            value: zod_1.z.string(),
+        }),
+    ])
+        .optional(),
     subject_places: zod_1.z.array(zod_1.z.string()).optional(),
     subject_times: zod_1.z.array(zod_1.z.string()).optional(),
     subject_people: zod_1.z.array(zod_1.z.string()).optional(),
