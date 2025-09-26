@@ -1,19 +1,16 @@
 import { z } from "zod";
 export declare const AuthorSchema: z.ZodObject<{
     name: z.ZodOptional<z.ZodString>;
-    bio: z.ZodOptional<z.ZodObject<{
+    bio: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
         type: z.ZodString;
         value: z.ZodString;
-    }, z.core.$strip>>;
+    }, z.core.$strip>]>>;
     source_records: z.ZodOptional<z.ZodArray<z.ZodString>>;
     birth_date: z.ZodOptional<z.ZodString>;
     death_date: z.ZodOptional<z.ZodString>;
     photos: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
     personal_name: z.ZodOptional<z.ZodString>;
     alternate_names: z.ZodOptional<z.ZodArray<z.ZodString>>;
-    title: z.ZodOptional<z.ZodString>;
-    fuller_name: z.ZodOptional<z.ZodString>;
-    key: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export declare const AuthorWorkEntrySchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;

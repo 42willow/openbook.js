@@ -3,10 +3,13 @@ import { z } from "zod";
 export const AuthorSchema = z.object({
   name: z.string().optional(),
   bio: z
-    .object({
-      type: z.string(),
-      value: z.string(),
-    })
+    .union([
+      z.string(),
+      z.object({
+        type: z.string(),
+        value: z.string(),
+      }),
+    ])
     .optional(),
   source_records: z.array(z.string()).optional(),
   birth_date: z.string().optional(),

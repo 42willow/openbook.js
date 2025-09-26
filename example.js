@@ -153,12 +153,14 @@ async function getEditionExample(editionId) {
 }
 
 async function runAllExamples() {
-  await searchExample();
-  await getWorkExample("OL468431W"); // The Great Gatsby
-  await getWorkEditionsExample("OL468431W"); // The Great Gatsby editions
-  await getEditionExample("OL27130218M"); // Specific edition
-  await getAuthorExample("OL23919A"); // J.K. Rowling
-  await getAuthorWorksExample("OL23919A"); // J.K. Rowling's works
+  // await searchExample();
+  // await getWorkExample("OL468431W"); // The Great Gatsby
+  // await getWorkEditionsExample("OL468431W"); // The Great Gatsby editions
+  // await getEditionExample("OL27130218M"); // Specific edition
+  await getAuthorExample("OL27349A"); // J.K. Rowling
+  await getAuthorExample("OL391839A")
+
+  // await getAuthorWorksExample("OL23919A"); // J.K. Rowling's works
 }
 
 runAllExamples().catch(console.error);
