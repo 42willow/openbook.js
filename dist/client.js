@@ -7,6 +7,7 @@ exports.OpenLibraryClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const work_1 = require("./schemes/work");
 const edition_1 = require("./schemes/edition");
+const author_1 = require("./schemes/author");
 const search_1 = require("./schemes/search");
 class OpenLibraryClient {
     constructor() {
@@ -43,6 +44,11 @@ class OpenLibraryClient {
         const data = await this.request(`/books/${id}.json`);
         return edition_1.EditionSchema.parse(data);
     }
+    async getAuthor(id) {
+        const data = await this.request(`/author/${id}.json`);
+        return author_1.AuthorSchema.parse(data);
+    }
+    ;
     async search(params) {
         const data = await this.request(`/search.json?${new URLSearchParams(params)}`);
         return search_1.SearchResponseSchema.parse(data);

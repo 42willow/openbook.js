@@ -8,6 +8,7 @@ import {
   WorkEditionResponseSchema,
 } from "./schemes/work";
 import { EditionSchema, Edition } from "./schemes/edition";
+import { Author, AuthorSchema } from "./schemes/author";
 import {
   SearchRequest,
   SearchResponse,
@@ -53,6 +54,11 @@ export class OpenLibraryClient {
     const data = await this.request<any>(`/books/${id}.json`);
     return EditionSchema.parse(data);
   }
+
+  async getAuthor(id: string): Promise<Author> {
+    const data = await this.request<any>(`/author/${id}.json`);
+    return AuthorSchema.parse(data)
+  };
 
   async search(params: SearchRequest): Promise<SearchResponse> {
     const data = await this.request<any>(

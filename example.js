@@ -32,17 +32,7 @@ async function getWorkExample(workId) {
   try {
     console.log("=== Work Example ===");
     const work = await client.getWork(workId);
-    console.log(`Work: "${work.title}"`);
-    console.log(`Key: ${work.key}`);
-    console.log(`Subjects: ${work.subjects?.slice(0, 5).join(", ") || "None"}`);
-    console.log(
-      `Description: ${
-        work.description
-          ? work.description.substring(0, 200) + "..."
-          : "No description"
-      }`
-    );
-    console.log("\n");
+    console.log(work);
   } catch (err) {
     console.error("Failed to get work:", err.message);
   }
@@ -78,16 +68,19 @@ async function getEditionExample(editionId) {
   try {
     console.log("=== Edition Example ===");
     const edition = await client.getEdition(editionId);
-    console.log(`Edition: "${edition.title}"`);
-    console.log(`Subtitle: ${edition.subtitle || "None"}`);
-    console.log(`Publishers: ${edition.publishers?.join(", ") || "Unknown"}`);
-    console.log(`Published: ${edition.publish_date || "Unknown"}`);
-    console.log(`Pages: ${edition.number_of_pages || "Unknown"}`);
-    console.log(`Format: ${edition.physical_format || "Unknown"}`);
-    console.log(`Key: ${edition.key}`);
-    console.log("\n");
+    console.log(edition);
   } catch (err) {
     console.error("Failed to get edition:", err.message);
+  }
+}
+
+async function getAuthorExample(authorId) {
+  try {
+    console.log("=== Author Example ===");
+    const author = await client.getAuthor(authorId);
+    console.log(author);
+  } catch (err) {
+    console.error("Failed to get author:", err.message);
   }
 }
 
@@ -96,6 +89,7 @@ async function runAllExamples() {
   await getWorkExample("OL468431W"); // The Great Gatsby
   await getWorkEditionsExample("OL468431W"); // The Great Gatsby editions
   await getEditionExample("OL27130218M"); // Specific edition
+  await getAuthorExample("OL391839A"); // James Baldwin
 }
 
 // Run all examples
