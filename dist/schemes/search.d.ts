@@ -13,10 +13,10 @@ export declare const SearchResponseDocumentSchema: z.ZodObject<{
     cover_i: z.ZodOptional<z.ZodNumber>;
     has_fulltext: z.ZodOptional<z.ZodBoolean>;
     edition_count: z.ZodOptional<z.ZodNumber>;
-    title: z.ZodOptional<z.ZodString>;
+    title: z.ZodString;
     author_name: z.ZodOptional<z.ZodArray<z.ZodString>>;
     first_publish_year: z.ZodOptional<z.ZodNumber>;
-    key: z.ZodOptional<z.ZodString>;
+    key: z.ZodString;
     ia: z.ZodOptional<z.ZodArray<z.ZodString>>;
     author_key: z.ZodOptional<z.ZodArray<z.ZodString>>;
     public_scan_b: z.ZodOptional<z.ZodBoolean>;
@@ -28,10 +28,10 @@ export declare const SearchResponseSchema: z.ZodObject<{
         cover_i: z.ZodOptional<z.ZodNumber>;
         has_fulltext: z.ZodOptional<z.ZodBoolean>;
         edition_count: z.ZodOptional<z.ZodNumber>;
-        title: z.ZodOptional<z.ZodString>;
+        title: z.ZodString;
         author_name: z.ZodOptional<z.ZodArray<z.ZodString>>;
         first_publish_year: z.ZodOptional<z.ZodNumber>;
-        key: z.ZodOptional<z.ZodString>;
+        key: z.ZodString;
         ia: z.ZodOptional<z.ZodArray<z.ZodString>>;
         author_key: z.ZodOptional<z.ZodArray<z.ZodString>>;
         public_scan_b: z.ZodOptional<z.ZodBoolean>;

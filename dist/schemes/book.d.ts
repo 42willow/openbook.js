@@ -1,37 +1,52 @@
 import { z } from "zod";
-export declare const BookSchema: z.ZodObject<{
-    authors: z.ZodPipe<z.ZodArray<z.ZodObject<{
+export declare const EditionSchema: z.ZodObject<{
+    key: z.ZodOptional<z.ZodString>;
+    type: z.ZodOptional<z.ZodObject<{
         key: z.ZodString;
-    }, z.core.$strip>>, z.ZodTransform<string[], {
-        key: string;
-    }[]>>;
-    identifiers: z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>;
-    local_id: z.ZodArray<z.ZodString>;
-    publish_date: z.ZodString;
-    publishers: z.ZodArray<z.ZodString>;
-    source_records: z.ZodArray<z.ZodString>;
-    title: z.ZodString;
-    full_title: z.ZodString;
-    works: z.ZodPipe<z.ZodArray<z.ZodObject<{
+    }, z.core.$strip>>;
+    revision: z.ZodOptional<z.ZodNumber>;
+    latest_revision: z.ZodOptional<z.ZodNumber>;
+    title: z.ZodOptional<z.ZodString>;
+    full_title: z.ZodOptional<z.ZodString>;
+    subtitle: z.ZodOptional<z.ZodString>;
+    work_titles: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    authors: z.ZodOptional<z.ZodArray<z.ZodObject<{
         key: z.ZodString;
-    }, z.core.$strip>>, z.ZodTransform<string[], {
-        key: string;
-    }[]>>;
-    latest_revision: z.ZodNumber;
-    revision: z.ZodNumber;
-    created: z.ZodPipe<z.ZodObject<{
+    }, z.core.$strip>>>;
+    works: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodString;
+    }, z.core.$strip>>>;
+    publishers: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    publish_places: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    publish_date: z.ZodOptional<z.ZodString>;
+    publish_country: z.ZodOptional<z.ZodString>;
+    by_statement: z.ZodOptional<z.ZodString>;
+    identifiers: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>>;
+    isbn_10: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    isbn_13: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    lc_classifications: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    lccn: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    oclc_numbers: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    local_id: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    series: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    subjects: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    number_of_pages: z.ZodOptional<z.ZodNumber>;
+    pagination: z.ZodOptional<z.ZodString>;
+    notes: z.ZodOptional<z.ZodObject<{
         type: z.ZodString;
         value: z.ZodString;
-    }, z.core.$strip>, z.ZodTransform<string, {
-        type: string;
-        value: string;
-    }>>;
-    last_modified: z.ZodPipe<z.ZodObject<{
+    }, z.core.$strip>>;
+    source_records: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    created: z.ZodOptional<z.ZodObject<{
         type: z.ZodString;
         value: z.ZodString;
-    }, z.core.$strip>, z.ZodTransform<string, {
-        type: string;
-        value: string;
-    }>>;
+    }, z.core.$strip>>;
+    last_modified: z.ZodOptional<z.ZodObject<{
+        type: z.ZodString;
+        value: z.ZodString;
+    }, z.core.$strip>>;
+    languages: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodString;
+    }, z.core.$strip>>>;
 }, z.core.$strip>;
-export type Book = z.infer<typeof BookSchema>;
+export type Edition = z.infer<typeof EditionSchema>;

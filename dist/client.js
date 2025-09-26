@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OpenLibraryClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const work_1 = require("./schemes/work");
-const book_1 = require("./schemes/book");
+const edition_1 = require("./schemes/edition");
 const search_1 = require("./schemes/search");
 class OpenLibraryClient {
     constructor() {
@@ -35,9 +35,13 @@ class OpenLibraryClient {
         const data = await this.request(`/works/${id}.json`);
         return work_1.WorkSchema.parse(data);
     }
-    async getBook(id) {
+    async getWorkEditions(id) {
+        const data = await this.request(`/works/${id}/editions.json`);
+        return work_1.WorkEditionResponseSchema.parse(data);
+    }
+    async getEdition(id) {
         const data = await this.request(`/books/${id}.json`);
-        return book_1.BookSchema.parse(data);
+        return edition_1.EditionSchema.parse(data);
     }
     async search(params) {
         const data = await this.request(`/search.json?${new URLSearchParams(params)}`);

@@ -15,10 +15,10 @@ export const SearchResponseDocumentSchema = z.object({
   cover_i: z.number().optional(),
   has_fulltext: z.boolean().optional(),
   edition_count: z.number().optional(),
-  title: z.string().optional(),
+  title: z.string(),
   author_name: z.array(z.string()).optional(),
   first_publish_year: z.number().optional(),
-  key: z.string().optional(),
+  key: z.string(),
   ia: z.array(z.string()).optional(),
   author_key: z.array(z.string()).optional(),
   public_scan_b: z.boolean().optional(),
@@ -32,4 +32,6 @@ export const SearchResponseSchema = z.object({
 
 export type SearchResponse = z.infer<typeof SearchResponseSchema>;
 export type SearchRequest = z.infer<typeof SearchRequestSchema>;
-export type SearchResponseDocument = z.infer<typeof SearchResponseDocumentSchema>;
+export type SearchResponseDocument = z.infer<
+  typeof SearchResponseDocumentSchema
+>;

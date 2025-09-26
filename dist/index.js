@@ -18,5 +18,5 @@ exports.OpenLibraryClient = void 0;
 var client_1 = require("./client");
 Object.defineProperty(exports, "OpenLibraryClient", { enumerable: true, get: function () { return client_1.OpenLibraryClient; } });
 __exportStar(require("./schemes/work"), exports);
-__exportStar(require("./schemes/book"), exports);
+__exportStar(require("./schemes/edition"), exports);
 __exportStar(require("./schemes/search"), exports);

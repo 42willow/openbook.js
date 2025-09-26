@@ -1,24 +1,102 @@
 const { OpenLibraryClient } = require("./dist/index.js");
+const client = new OpenLibraryClient();
 
-async function example() {
-  const client = new OpenLibraryClient();
-
+async function searchExample() {
   try {
-    // Search for books
+    console.log("=== Search Example ===");
     const searchResults = await client.search({
-      q: "JavaScript",
+      q: "Harry Potter",
       limit: 3,
     });
 
-    console.log("Search Results:");
+    console.log(
+      `Found ${searchResults.num_found} results, showing first ${searchResults.docs.length}:`
+    );
     searchResults.docs.forEach((doc, index) => {
       console.log(
-        `${index + 1}. ${doc.title} by ${doc.author_name?.[0] || "Unknown"}`
+        `${index + 1}. "${doc.title}" by ${
+          doc.author_name?.[0] || "Unknown"
+        } (${doc.first_publish_year || "N/A"})`
       );
     });
+    console.log("\n");
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("Search failed:", error.message);
+    console.log(
+      "Note: Search might fail due to network issues. The other examples should still work.\n"
+    );
   }
 }
 
-example();
+async function getWorkExample(workId) {
+  try {
+    console.log("=== Work Example ===");
+    const work = await client.getWork(workId);
+    console.log(`Work: "${work.title}"`);
+    console.log(`Key: ${work.key}`);
+    console.log(`Subjects: ${work.subjects?.slice(0, 5).join(", ") || "None"}`);
+    console.log(
+      `Description: ${
+        work.description
+          ? work.description.substring(0, 200) + "..."
+          : "No description"
+      }`
+    );
+    console.log("\n");
+  } catch (err) {
+    console.error("Failed to get work:", err.message);
+  }
+}
+
+async function getWorkEditionsExample(workId) {
+  try {
+    console.log("=== Work Editions Example ===");
+    const editionsResponse = await client.getWorkEditions(workId);
+    console.log(`Total editions: ${editionsResponse.size}`);
+    console.log(`Showing first ${editionsResponse.entries.length} editions:`);
+
+    editionsResponse.entries.slice(0, 10).forEach((edition, index) => {
+      console.log(
+        `${index + 1}. "${edition.title}" (${
+          edition.publish_date || "Unknown year"
+        }) - ${edition.publishers?.[0] || "Unknown publisher"}`
+      );
+    });
+
+    console.log(
+      `\nPagination links available: ${Object.keys(
+        editionsResponse.links || {}
+      ).join(", ")}`
+    );
+    console.log("\n");
+  } catch (err) {
+    console.error("Failed to get work editions:", err.message);
+  }
+}
+
+async function getEditionExample(editionId) {
+  try {
+    console.log("=== Edition Example ===");
+    const edition = await client.getEdition(editionId);
+    console.log(`Edition: "${edition.title}"`);
+    console.log(`Subtitle: ${edition.subtitle || "None"}`);
+    console.log(`Publishers: ${edition.publishers?.join(", ") || "Unknown"}`);
+    console.log(`Published: ${edition.publish_date || "Unknown"}`);
+    console.log(`Pages: ${edition.number_of_pages || "Unknown"}`);
+    console.log(`Format: ${edition.physical_format || "Unknown"}`);
+    console.log(`Key: ${edition.key}`);
+    console.log("\n");
+  } catch (err) {
+    console.error("Failed to get edition:", err.message);
+  }
+}
+
+async function runAllExamples() {
+  await searchExample();
+  await getWorkExample("OL468431W"); // The Great Gatsby
+  await getWorkEditionsExample("OL468431W"); // The Great Gatsby editions
+  await getEditionExample("OL27130218M"); // Specific edition
+}
+
+// Run all examples
+runAllExamples().catch(console.error);

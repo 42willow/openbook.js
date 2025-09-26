@@ -27,9 +27,15 @@ console.log(searchResults.docs);
 const work = await client.getWork('OL45804W');
 console.log(work.title);
 
-// Get a specific book
-const book = await client.getBook('OL7353617M');
-console.log(book.title);
+// Get work editions
+const workEditions = await client.getWorkEditions('OL45804W');
+console.log(workEditions.entries); // Array of editions
+console.log(workEditions.size); // Total number of editions
+console.log(workEditions.links); // Pagination links
+
+// Get a specific edition
+const edition = await client.getEdition('OL7353617M');
+console.log(edition.title);
 ```
 
 ## API
@@ -52,18 +58,27 @@ Search for books using the Open Library search API.
 
 Get a specific work by its Open Library ID.
 
-#### `getBook(id: string): Promise<Book>`
+#### `getWorkEditions(id: string): Promise<WorkEditionResponse>`
 
-Get a specific book by its Open Library ID.
+Get all editions of a specific work by its Open Library ID. Returns an object containing:
+- `entries`: Array of `WorkEdition` objects
+- `size`: Total number of editions available
+- `links`: Pagination links for additional results
+
+#### `getEdition(id: string): Promise<Edition>`
+
+Get a specific edition by its Open Library ID.
 
 ## Types
 
 The library exports TypeScript types for all API responses:
 
-- `SearchRequest`
-- `SearchResponse`
-- `Work`
-- `Book`
+- `SearchRequest` - Parameters for search requests
+- `SearchResponse` - Response from search API
+- `Work` - A work object from Open Library
+- `WorkEdition` - An edition within a work's editions response
+- `WorkEditionResponse` - Response containing work editions with pagination
+- `Edition` - A standalone edition object
 
 ## License
 
