@@ -1,6 +1,6 @@
 {
   "name": "openbook.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A TypeScript client library for the Open Library API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
