@@ -14,7 +14,15 @@ export const WorkSchema = z.object({
     )
     .optional(),
   covers: z.array(z.number()).optional(),
-  description: z.string().optional(),
+  description: z
+    .union([
+      z.string(),
+      z.object({
+        type: z.string(),
+        value: z.string(),
+      }),
+    ])
+    .optional(),
   subject_places: z.array(z.string()).optional(),
   subject_times: z.array(z.string()).optional(),
   subject_people: z.array(z.string()).optional(),
