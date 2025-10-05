@@ -6,7 +6,7 @@ export declare class OpenLibraryClient {
     private client;
     /**
      * @param userAgent - A string specifying the User-Agent for API requests.
-     * This should include the name of your application and a contact email.
+     * This should include the name of your application and a contact email or phone number.
      * @example
      * const client = new OpenLibraryClient("MyAppName/1.0 (myemail@example.com)");
      */

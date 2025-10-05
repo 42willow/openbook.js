@@ -13,7 +13,7 @@ npm install openbook.js
 ```typescript
 import { OpenLibraryClient } from 'openbook.js';
 
-const client = new OpenLibraryClient();
+const client = new OpenLibraryClient("MyAppName/1.0 (myemail@example.com)");
 
 // Search for books
 const searchResults = await client.search({

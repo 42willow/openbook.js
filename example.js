@@ -1,12 +1,15 @@
 const { OpenLibraryClient } = require("./dist/index.js");
-const client = new OpenLibraryClient();
+const client = new OpenLibraryClient("MyAppName/1.0 (myemail@example.com)");
 
-async function searchExample() {
+async function searchExample(
+  query = "One Hundred Years of Solitude",
+  limit = 3
+) {
   try {
     console.log("=== Search Example ===");
     const searchResults = await client.search({
-      q: "Harry Potter",
-      limit: 3,
+      q: query,
+      limit: limit,
     });
 
     console.log(
@@ -21,7 +24,10 @@ async function searchExample() {
     });
     console.log("\n");
   } catch (error) {
-    console.error("Search failed:", error.message);
+    console.error(
+      "Search failed:",
+      error instanceof Error ? error.message : String(error)
+    );
     console.log(
       "Note: Search might fail due to network issues. The other examples should still work.\n"
     );
@@ -34,7 +40,10 @@ async function getWorkExample(workId) {
     const work = await client.getWork(workId);
     console.log(work);
   } catch (err) {
-    console.error("Failed to get work:", err.message);
+    console.error(
+      "Failed to get work:",
+      err instanceof Error ? err.message : String(err)
+    );
   }
 }
 
@@ -60,58 +69,10 @@ async function getWorkEditionsExample(workId) {
     );
     console.log("\n");
   } catch (err) {
-    console.error("Failed to get work editions:", err.message);
-  }
-}
-
-async function getAuthorExample(authorId) {
-  try {
-    console.log("=== Author Example ===");
-    const author = await client.getAuthor(authorId);
-    console.log(`Author: ${author.name}`);
-    console.log(
-      `Bio: ${
-        author.bio?.value
-          ? author.bio.value.substring(0, 200) + "..."
-          : "No bio available"
-      }`
+    console.error(
+      "Failed to get work editions:",
+      err instanceof Error ? err.message : String(err)
     );
-    console.log(`Birth Date: ${author.birth_date || "Unknown"}`);
-    console.log(`Death Date: ${author.death_date || "Unknown"}`);
-    console.log(`Personal Name: ${author.personal_name || "None"}`);
-    console.log(
-      `Alternate Names: ${
-        author.alternate_names?.slice(0, 3).join(", ") || "None"
-      }`
-    );
-    console.log(`Key: ${author.key}`);
-    console.log("\n");
-  } catch (err) {
-    console.error("Failed to get author:", err.message);
-  }
-}
-
-async function getAuthorWorksExample(authorId) {
-  try {
-    console.log("=== Author Works Example ===");
-    const worksResponse = await client.getAuthorWorks(authorId);
-    console.log(`Total works: ${worksResponse.size}`);
-    console.log(
-      `Showing first ${Math.min(10, worksResponse.entries.length)} works:`
-    );
-
-    worksResponse.entries.slice(0, 10).forEach((work, index) => {
-      console.log(`${index + 1}. "${work.title}" (${work.key})`);
-    });
-
-    console.log(
-      `\nPagination links available: ${Object.keys(
-        worksResponse.links || {}
-      ).join(", ")}`
-    );
-    console.log("\n");
-  } catch (err) {
-    console.error("Failed to get author works:", err.message);
   }
 }
 
@@ -121,7 +82,10 @@ async function getAuthorExample(authorId) {
     const author = await client.getAuthor(authorId);
     console.log(author);
   } catch (err) {
-    console.error("Failed to get author:", err.message);
+    console.error(
+      "Failed to get author:",
+      err instanceof Error ? err.message : String(err)
+    );
   }
 }
 
@@ -131,7 +95,10 @@ async function getAuthorWorksExample(authorId) {
     const worksResponse = await client.getAuthorWorks(authorId);
     console.log(`Total works: ${worksResponse.size}`);
   } catch (err) {
-    console.error("Failed to get author works:", err.message);
+    console.error(
+      "Failed to get author works:",
+      err instanceof Error ? err.message : String(err)
+    );
   }
 }
 
@@ -148,19 +115,20 @@ async function getEditionExample(editionId) {
     console.log(`Key: ${edition.key}`);
     console.log("\n");
   } catch (err) {
-    console.error("Failed to get edition:", err.message);
+    console.error(
+      "Failed to get edition:",
+      err instanceof Error ? err.message : String(err)
+    );
   }
 }
 
 async function runAllExamples() {
-  // await searchExample();
-  // await getWorkExample("OL468431W"); // The Great Gatsby
-  // await getWorkEditionsExample("OL468431W"); // The Great Gatsby editions
-  // await getEditionExample("OL27130218M"); // Specific edition
-  await getAuthorExample("OL27349A"); // J.K. Rowling
-  await getAuthorExample("OL391839A")
-
-  // await getAuthorWorksExample("OL23919A"); // J.K. Rowling's works
+  await searchExample("One Hundred Years of Solitude", 3);
+  await getWorkExample("OL274505W"); // One Hundred Years of Solitude
+  await getWorkEditionsExample("OL274505W"); // One Hundred Years of Solitude editions
+  await getEditionExample("OL60001193M"); // Specific edition
+  await getAuthorExample("OL27363A"); // Gabriel García Márquez
+  await getAuthorWorksExample("OL27363A"); // Gabriel García Márquez's works
 }
 
 runAllExamples().catch(console.error);
