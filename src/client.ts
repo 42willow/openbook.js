@@ -23,16 +23,20 @@ export class OpenLibraryClient {
   private client: AxiosInstance;
 
   /**
-   * @param userAgent - A string specifying the User-Agent for API requests.
+   * @param userAgent - (Optional) A string specifying the User-Agent for API requests.
+   * If not provided, a default value will be used.
+   *
    * This should include the name of your application and a contact email or phone number.
    * @example
+   * const client = new OpenLibraryClient(); // uses default User-Agent
    * const client = new OpenLibraryClient("MyAppName/1.0 (myemail@example.com)");
    */
-  constructor(userAgent: string) {
+  constructor(userAgent?: string) {
+    const defaultAgent = "MyAppName/1.0 (myemail@example.com)";
     this.client = axios.create({
       baseURL: "https://openlibrary.org",
       headers: {
-        "User-Agent": userAgent,
+        "User-Agent": userAgent || defaultAgent,
       },
     });
   }
@@ -78,7 +82,7 @@ export class OpenLibraryClient {
 
   async search(params: SearchRequest): Promise<SearchResponse> {
     const data = await this.request<any>(
-      `/search.json?${new URLSearchParams(params as any)}`,
+      `/search.json?${new URLSearchParams(params as any)}`
     );
     return SearchResponseSchema.parse(data);
   }

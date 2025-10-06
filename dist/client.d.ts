@@ -5,12 +5,15 @@ import { SearchRequest, SearchResponse } from "./schemes/search";
 export declare class OpenLibraryClient {
     private client;
     /**
-     * @param userAgent - A string specifying the User-Agent for API requests.
+     * @param userAgent - (Optional) A string specifying the User-Agent for API requests.
+     * If not provided, a default value will be used.
+     *
      * This should include the name of your application and a contact email or phone number.
      * @example
+     * const client = new OpenLibraryClient(); // uses default User-Agent
      * const client = new OpenLibraryClient("MyAppName/1.0 (myemail@example.com)");
      */
-    constructor(userAgent: string);
+    constructor(userAgent?: string);
     private request;
     getWork(id: string): Promise<Work>;
     getWorkEditions(id: string): Promise<WorkEditionResponse>;

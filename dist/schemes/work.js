@@ -23,6 +23,7 @@ exports.WorkSchema = zod_1.z.object({
         }),
     ])
         .optional(),
+    first_publish_date: zod_1.z.string().optional(),
     subject_places: zod_1.z.array(zod_1.z.string()).optional(),
     subject_times: zod_1.z.array(zod_1.z.string()).optional(),
     subject_people: zod_1.z.array(zod_1.z.string()).optional(),
