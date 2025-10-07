@@ -13,6 +13,7 @@ export declare const WorkSchema: z.ZodObject<{
         type: z.ZodString;
         value: z.ZodString;
     }, z.core.$strip>]>>;
+    first_publish_date: z.ZodOptional<z.ZodString>;
     subject_places: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_times: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_people: z.ZodOptional<z.ZodArray<z.ZodString>>;

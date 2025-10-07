@@ -23,6 +23,7 @@ export const WorkSchema = z.object({
       }),
     ])
     .optional(),
+  first_publish_date: z.string().optional(),
   subject_places: z.array(z.string()).optional(),
   subject_times: z.array(z.string()).optional(),
   subject_people: z.array(z.string()).optional(),
