@@ -76,9 +76,9 @@ Get all editions of a specific work by its Open Library ID. Returns an object co
 - `size`: Total number of editions available
 - `links`: Pagination links for additional results
 
-#### `getEdition(id: string): Promise<Edition>`
+#### `getEdition(params: string | { id?: string; isbn?: string }): Promise<Edition>`
 
-Get a specific edition by its Open Library ID.
+Get a specific edition by its Open Library ID or ISBN.
 
 #### `getAuthor(id: string): Promise<Author>`
 

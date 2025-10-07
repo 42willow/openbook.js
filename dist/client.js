@@ -50,8 +50,20 @@ class OpenLibraryClient {
         const data = await this.request(`/works/${id}/editions.json`);
         return work_1.WorkEditionResponseSchema.parse(data);
     }
-    async getEdition(id) {
-        const data = await this.request(`/books/${id}.json`);
+    async getEdition(params) {
+        let id;
+        let isbn;
+        if (typeof params === "string") {
+            id = params;
+            console.warn("Deprecation Warning: Calling getEdition with a string id is deprecated. Please use an object with either 'id' or 'isbn' property.");
+        }
+        else {
+            ({ id, isbn } = params);
+        }
+        if ((!id && !isbn) || (id && isbn)) {
+            throw new Error("Either id or isbn must be provided");
+        }
+        const data = await this.request(`${isbn ? `isbn:${isbn}` : `books/${id}`}.json`);
         return edition_1.EditionSchema.parse(data);
     }
     async getAuthor(id) {

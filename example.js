@@ -123,12 +123,12 @@ async function getEditionExample(editionId) {
 }
 
 async function runAllExamples() {
-  await searchExample("One Hundred Years of Solitude", 3);
-  await getWorkExample("OL274505W"); // One Hundred Years of Solitude
-  await getWorkEditionsExample("OL274505W"); // One Hundred Years of Solitude editions
-  await getEditionExample("OL60001193M"); // Specific edition
-  await getAuthorExample("OL27363A"); // Gabriel García Márquez
-  await getAuthorWorksExample("OL27363A"); // Gabriel García Márquez's works
+  // await searchExample("One Hundred Years of Solitude", 3);
+  // await getWorkExample("OL274505W"); // One Hundred Years of Solitude
+  // await getWorkEditionsExample("OL274505W"); // One Hundred Years of Solitude editions
+  await getEditionExample({id: "OL60001193M"}); // Specific edition
+  // await getAuthorExample("OL27363A"); // Gabriel García Márquez
+  // await getAuthorWorksExample("OL27363A"); // Gabriel García Márquez's works
 }
 
 runAllExamples().catch(console.error);

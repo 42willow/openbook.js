@@ -17,7 +17,10 @@ export declare class OpenLibraryClient {
     private request;
     getWork(id: string): Promise<Work>;
     getWorkEditions(id: string): Promise<WorkEditionResponse>;
-    getEdition(id: string): Promise<Edition>;
+    getEdition(params: string | {
+        id?: string;
+        isbn?: string;
+    }): Promise<Edition>;
     getAuthor(id: string): Promise<Author>;
     getAuthorWorks(id: string): Promise<AuthorWorksResponse>;
     search(params: SearchRequest): Promise<SearchResponse>;
