@@ -8,7 +8,7 @@ export declare const WorkSchema: z.ZodObject<{
             key: z.ZodString;
         }, z.core.$strip>;
     }, z.core.$strip>>>;
-    covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+    covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
     description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
         type: z.ZodOptional<z.ZodString>;
         value: z.ZodString;
@@ -48,7 +48,7 @@ export declare const WorkEditionSchema: z.ZodObject<{
     }, z.core.$strip>>;
     identifiers: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>>;
     classifications: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>>;
-    covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+    covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
     isbn_13: z.ZodOptional<z.ZodArray<z.ZodString>>;
     languages: z.ZodOptional<z.ZodArray<z.ZodObject<{
         key: z.ZodString;
@@ -82,7 +82,7 @@ export declare const WorkEditionResponseSchema: z.ZodObject<{
         }, z.core.$strip>>;
         identifiers: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>>;
         classifications: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodArray<z.ZodString>>>;
-        covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+        covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
         isbn_13: z.ZodOptional<z.ZodArray<z.ZodString>>;
         languages: z.ZodOptional<z.ZodArray<z.ZodObject<{
             key: z.ZodString;

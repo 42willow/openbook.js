@@ -13,7 +13,7 @@ export const WorkSchema = z.object({
       })
     )
     .optional(),
-  covers: z.array(z.number()).optional(),
+  covers: z.array(z.number().transform((num) => num.toString())).optional(),
   description: z
     .union([
       z.string(),
@@ -75,7 +75,7 @@ export const WorkEditionSchema = z.object({
   identifiers: z.record(z.string(), z.array(z.string())).optional(),
   classifications: z.record(z.string(), z.array(z.string())).optional(),
 
-  covers: z.array(z.number()).optional(),
+  covers: z.array(z.number().transform((num) => num.toString())).optional(),
   isbn_13: z.array(z.string()).optional(),
 
   languages: z

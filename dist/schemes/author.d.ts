@@ -21,7 +21,7 @@ export declare const AuthorWorkEntrySchema: z.ZodObject<{
             key: z.ZodString;
         }, z.core.$strip>;
     }, z.core.$strip>>>;
-    covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+    covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
     description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
         type: z.ZodOptional<z.ZodString>;
         value: z.ZodString;
@@ -57,7 +57,7 @@ export declare const AuthorWorksResponseSchema: z.ZodObject<{
                 key: z.ZodString;
             }, z.core.$strip>;
         }, z.core.$strip>>>;
-        covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+        covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
         description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
             type: z.ZodOptional<z.ZodString>;
             value: z.ZodString;

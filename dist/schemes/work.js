@@ -13,7 +13,7 @@ exports.WorkSchema = zod_1.z.object({
         }),
     }))
         .optional(),
-    covers: zod_1.z.array(zod_1.z.number()).optional(),
+    covers: zod_1.z.array(zod_1.z.number().transform((num) => num.toString())).optional(),
     description: zod_1.z
         .union([
         zod_1.z.string(),
@@ -63,7 +63,7 @@ exports.WorkEditionSchema = zod_1.z.object({
         .optional(),
     identifiers: zod_1.z.record(zod_1.z.string(), zod_1.z.array(zod_1.z.string())).optional(),
     classifications: zod_1.z.record(zod_1.z.string(), zod_1.z.array(zod_1.z.string())).optional(),
-    covers: zod_1.z.array(zod_1.z.number()).optional(),
+    covers: zod_1.z.array(zod_1.z.number().transform((num) => num.toString())).optional(),
     isbn_13: zod_1.z.array(zod_1.z.string()).optional(),
     languages: zod_1.z
         .array(zod_1.z.object({
