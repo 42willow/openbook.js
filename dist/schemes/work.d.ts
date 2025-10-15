@@ -9,20 +9,28 @@ export declare const WorkSchema: z.ZodObject<{
         }, z.core.$strip>;
     }, z.core.$strip>>>;
     covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
-    description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
+    description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
         type: z.ZodOptional<z.ZodString>;
         value: z.ZodString;
-    }, z.core.$strip>]>>;
+    }, z.core.$strip>, z.ZodTransform<string, {
+        value: string;
+        type?: string | undefined;
+    }>>]>>;
     first_publish_date: z.ZodOptional<z.ZodString>;
     subject_places: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_times: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_people: z.ZodOptional<z.ZodArray<z.ZodString>>;
-    excerpts: z.ZodOptional<z.ZodArray<z.ZodObject<{
+    excerpts: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodObject<{
         excerpt: z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
             type: z.ZodOptional<z.ZodString>;
             value: z.ZodString;
         }, z.core.$strip>]>;
-    }, z.core.$strip>>>;
+    }, z.core.$strip>, z.ZodTransform<string, {
+        excerpt: string | {
+            value: string;
+            type?: string | undefined;
+        };
+    }>>>>;
     latest_revision: z.ZodOptional<z.ZodNumber>;
     revision: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
@@ -99,5 +107,3 @@ export declare const WorkEditionResponseSchema: z.ZodObject<{
 export type WorkEdition = z.infer<typeof WorkEditionSchema>;
 export type Work = z.infer<typeof WorkSchema>;
 export type WorkEditionResponse = z.infer<typeof WorkEditionResponseSchema>;
-export declare function normalizeExcerpts(work: Work): string[];
-export declare function normalizeDescription(work: Work): string | undefined;
