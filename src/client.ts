@@ -18,6 +18,8 @@ import {
   SearchRequest,
   SearchResponse,
   SearchResponseSchema,
+  SearchAuthorResponse,
+  SearchAuthorResponseSchema,
 } from "./schemes/search";
 export class OpenLibraryClient {
   private client: AxiosInstance;
@@ -105,5 +107,12 @@ export class OpenLibraryClient {
       `/search.json?${new URLSearchParams(params as any)}`
     );
     return SearchResponseSchema.parse(data);
+  }
+
+  async searchAuthors(params: SearchRequest): Promise<SearchAuthorResponse> {
+    const data = await this.request<any>(
+      `/search/authors.json?${new URLSearchParams(params as any)}`
+    );
+    return SearchAuthorResponseSchema.parse(data);
   }
 }

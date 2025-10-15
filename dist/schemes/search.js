@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SearchResponseSchema = exports.SearchResponseDocumentSchema = exports.SearchRequestSchema = void 0;
+exports.SearchAuthorResponseSchema = exports.SearchAuthorResponseDocumentSchema = exports.SearchResponseSchema = exports.SearchResponseDocumentSchema = exports.SearchRequestSchema = void 0;
 const zod_1 = require("zod");
 exports.SearchRequestSchema = zod_1.z.object({
     q: zod_1.z.string(),
@@ -28,4 +28,18 @@ exports.SearchResponseSchema = zod_1.z.object({
     start: zod_1.z.number(),
     num_found: zod_1.z.number(),
     docs: zod_1.z.array(exports.SearchResponseDocumentSchema),
+});
+exports.SearchAuthorResponseDocumentSchema = zod_1.z.object({
+    alternate_names: zod_1.z.array(zod_1.z.string()).optional(),
+    birth_date: zod_1.z.string().optional(),
+    death_date: zod_1.z.string().optional(),
+    key: zod_1.z.string(),
+    name: zod_1.z.string().optional(),
+    top_work: zod_1.z.string().optional(),
+    work_count: zod_1.z.number().optional(),
+});
+exports.SearchAuthorResponseSchema = zod_1.z.object({
+    start: zod_1.z.number(),
+    numFound: zod_1.z.number(),
+    docs: zod_1.z.array(exports.SearchAuthorResponseDocumentSchema),
 });

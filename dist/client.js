@@ -78,5 +78,9 @@ class OpenLibraryClient {
         const data = await this.request(`/search.json?${new URLSearchParams(params)}`);
         return search_1.SearchResponseSchema.parse(data);
     }
+    async searchAuthors(params) {
+        const data = await this.request(`/search/authors.json?${new URLSearchParams(params)}`);
+        return search_1.SearchAuthorResponseSchema.parse(data);
+    }
 }
 exports.OpenLibraryClient = OpenLibraryClient;

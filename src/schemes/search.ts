@@ -30,8 +30,25 @@ export const SearchResponseSchema = z.object({
   docs: z.array(SearchResponseDocumentSchema),
 });
 
+export const SearchAuthorResponseDocumentSchema = z.object({
+  alternate_names: z.array(z.string()).optional(),
+  birth_date: z.string().optional(),
+  death_date: z.string().optional(),
+  key: z.string(),
+  name: z.string().optional(),
+  top_work: z.string().optional(),
+  work_count: z.number().optional(),
+});
+
+export const SearchAuthorResponseSchema = z.object({
+  start: z.number(),
+  numFound: z.number(),
+  docs: z.array(SearchAuthorResponseDocumentSchema),
+});
+
 export type SearchResponse = z.infer<typeof SearchResponseSchema>;
 export type SearchRequest = z.infer<typeof SearchRequestSchema>;
 export type SearchResponseDocument = z.infer<
   typeof SearchResponseDocumentSchema
 >;
+export type SearchAuthorResponse = z.infer<typeof SearchAuthorResponseSchema>;
