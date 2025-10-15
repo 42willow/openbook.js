@@ -110,7 +110,3 @@ The library exports TypeScript types for all API responses:
 - `Author` - An author object with biographical information
 - `AuthorWorkEntry` - A work entry within an author's works response
 - `AuthorWorksResponse` - Response containing author works with pagination
-
-## License
-
-ISC
