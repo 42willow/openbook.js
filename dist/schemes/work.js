@@ -1,7 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkEditionResponseSchema = exports.WorkEditionSchema = exports.WorkSchema = void 0;
+exports.normalizeExcerpts = normalizeExcerpts;
+exports.normalizeDescription = normalizeDescription;
 const zod_1 = require("zod");
+const StringOrObjectSchema = zod_1.z.union([
+    zod_1.z.string(),
+    zod_1.z.object({
+        type: zod_1.z.string().optional(),
+        value: zod_1.z.string(),
+    }),
+]);
 exports.WorkSchema = zod_1.z.object({
     title: zod_1.z.string().optional(),
     subjects: zod_1.z.array(zod_1.z.string()).optional(),
@@ -14,22 +23,14 @@ exports.WorkSchema = zod_1.z.object({
     }))
         .optional(),
     covers: zod_1.z.array(zod_1.z.number()).optional(),
-    description: zod_1.z
-        .union([
-        zod_1.z.string(),
-        zod_1.z.object({
-            type: zod_1.z.string(),
-            value: zod_1.z.string(),
-        }),
-    ])
-        .optional(),
+    description: StringOrObjectSchema.optional(),
     first_publish_date: zod_1.z.string().optional(),
     subject_places: zod_1.z.array(zod_1.z.string()).optional(),
     subject_times: zod_1.z.array(zod_1.z.string()).optional(),
     subject_people: zod_1.z.array(zod_1.z.string()).optional(),
     excerpts: zod_1.z
         .array(zod_1.z.object({
-        excerpt: zod_1.z.string(),
+        excerpt: StringOrObjectSchema,
     }))
         .optional(),
     latest_revision: zod_1.z.number().optional(),
@@ -83,3 +84,15 @@ exports.WorkEditionResponseSchema = zod_1.z.object({
     size: zod_1.z.number().optional(),
     links: zod_1.z.record(zod_1.z.string(), zod_1.z.string()).optional(),
 });
+function normalizeExcerpts(work) {
+    if (!work.excerpts)
+        return [];
+    return work.excerpts.map((e) => typeof e.excerpt === "string" ? e.excerpt : e.excerpt.value);
+}
+function normalizeDescription(work) {
+    if (!work.description)
+        return undefined;
+    return typeof work.description === "string"
+        ? work.description
+        : work.description.value;
+}

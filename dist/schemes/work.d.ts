@@ -10,7 +10,7 @@ export declare const WorkSchema: z.ZodObject<{
     }, z.core.$strip>>>;
     covers: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
     description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
-        type: z.ZodString;
+        type: z.ZodOptional<z.ZodString>;
         value: z.ZodString;
     }, z.core.$strip>]>>;
     first_publish_date: z.ZodOptional<z.ZodString>;
@@ -18,7 +18,10 @@ export declare const WorkSchema: z.ZodObject<{
     subject_times: z.ZodOptional<z.ZodArray<z.ZodString>>;
     subject_people: z.ZodOptional<z.ZodArray<z.ZodString>>;
     excerpts: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        excerpt: z.ZodString;
+        excerpt: z.ZodUnion<readonly [z.ZodString, z.ZodObject<{
+            type: z.ZodOptional<z.ZodString>;
+            value: z.ZodString;
+        }, z.core.$strip>]>;
     }, z.core.$strip>>>;
     latest_revision: z.ZodOptional<z.ZodNumber>;
     revision: z.ZodOptional<z.ZodNumber>;
@@ -96,3 +99,5 @@ export declare const WorkEditionResponseSchema: z.ZodObject<{
 export type WorkEdition = z.infer<typeof WorkEditionSchema>;
 export type Work = z.infer<typeof WorkSchema>;
 export type WorkEditionResponse = z.infer<typeof WorkEditionResponseSchema>;
+export declare function normalizeExcerpts(work: Work): string[];
+export declare function normalizeDescription(work: Work): string | undefined;
