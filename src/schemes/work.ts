@@ -1,5 +1,13 @@
 import { z } from "zod";
 
+const StringOrObjectSchema = z.union([
+  z.string(),
+  z.object({
+    type: z.string().optional(),
+    value: z.string(),
+  }),
+]);
+
 export const WorkSchema = z.object({
   title: z.string().optional(),
   subjects: z.array(z.string()).optional(),
@@ -14,15 +22,7 @@ export const WorkSchema = z.object({
     )
     .optional(),
   covers: z.array(z.number()).optional(),
-  description: z
-    .union([
-      z.string(),
-      z.object({
-        type: z.string(),
-        value: z.string(),
-      }),
-    ])
-    .optional(),
+  description: StringOrObjectSchema.optional(),
   first_publish_date: z.string().optional(),
   subject_places: z.array(z.string()).optional(),
   subject_times: z.array(z.string()).optional(),
@@ -30,7 +30,7 @@ export const WorkSchema = z.object({
   excerpts: z
     .array(
       z.object({
-        excerpt: z.string(),
+        excerpt: StringOrObjectSchema,
       })
     )
     .optional(),
@@ -104,3 +104,17 @@ export const WorkEditionResponseSchema = z.object({
 export type WorkEdition = z.infer<typeof WorkEditionSchema>;
 export type Work = z.infer<typeof WorkSchema>;
 export type WorkEditionResponse = z.infer<typeof WorkEditionResponseSchema>;
+
+export function normalizeExcerpts(work: Work): string[] {
+  if (!work.excerpts) return [];
+  return work.excerpts.map((e) =>
+    typeof e.excerpt === "string" ? e.excerpt : e.excerpt.value
+  );
+}
+
+export function normalizeDescription(work: Work): string | undefined {
+  if (!work.description) return undefined;
+  return typeof work.description === "string"
+    ? work.description
+    : work.description.value;
+}
