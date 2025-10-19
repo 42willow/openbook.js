@@ -16,11 +16,21 @@ export declare const AuthorWorkEntrySchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;
     subjects: z.ZodOptional<z.ZodArray<z.ZodString>>;
     key: z.ZodOptional<z.ZodString>;
-    authors: z.ZodOptional<z.ZodArray<z.ZodObject<{
+    authors: z.ZodArray<z.ZodPipe<z.ZodUnion<readonly [z.ZodObject<{
+        key: z.ZodString;
+    }, z.core.$strip>, z.ZodObject<{
         author: z.ZodObject<{
             key: z.ZodString;
         }, z.core.$strip>;
-    }, z.core.$strip>>>;
+    }, z.core.$strip>]>, z.ZodTransform<{
+        key: string;
+    }, {
+        key: string;
+    } | {
+        author: {
+            key: string;
+        };
+    }>>>;
     covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
     description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
         type: z.ZodOptional<z.ZodString>;
@@ -52,11 +62,21 @@ export declare const AuthorWorksResponseSchema: z.ZodObject<{
         title: z.ZodOptional<z.ZodString>;
         subjects: z.ZodOptional<z.ZodArray<z.ZodString>>;
         key: z.ZodOptional<z.ZodString>;
-        authors: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        authors: z.ZodArray<z.ZodPipe<z.ZodUnion<readonly [z.ZodObject<{
+            key: z.ZodString;
+        }, z.core.$strip>, z.ZodObject<{
             author: z.ZodObject<{
                 key: z.ZodString;
             }, z.core.$strip>;
-        }, z.core.$strip>>>;
+        }, z.core.$strip>]>, z.ZodTransform<{
+            key: string;
+        }, {
+            key: string;
+        } | {
+            author: {
+                key: string;
+            };
+        }>>>;
         covers: z.ZodOptional<z.ZodArray<z.ZodPipe<z.ZodNumber, z.ZodTransform<string, number>>>>;
         description: z.ZodOptional<z.ZodUnion<readonly [z.ZodString, z.ZodPipe<z.ZodObject<{
             type: z.ZodOptional<z.ZodString>;

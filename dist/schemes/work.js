@@ -6,13 +6,12 @@ exports.WorkSchema = zod_1.z.object({
     title: zod_1.z.string().optional(),
     subjects: zod_1.z.array(zod_1.z.string()).optional(),
     key: zod_1.z.string().optional(),
-    authors: zod_1.z
-        .array(zod_1.z.object({
-        author: zod_1.z.object({
-            key: zod_1.z.string(),
-        }),
-    }))
-        .optional(),
+    authors: zod_1.z.array(zod_1.z
+        .union([
+        zod_1.z.object({ key: zod_1.z.string() }),
+        zod_1.z.object({ author: zod_1.z.object({ key: zod_1.z.string() }) }),
+    ])
+        .transform((a) => ("author" in a ? a.author : a))),
     covers: zod_1.z.array(zod_1.z.number().transform((num) => num.toString())).optional(),
     description: zod_1.z
         .union([
