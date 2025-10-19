@@ -4,15 +4,14 @@ export const WorkSchema = z.object({
   title: z.string().optional(),
   subjects: z.array(z.string()).optional(),
   key: z.string().optional(),
-  authors: z
-    .array(
-      z.object({
-        author: z.object({
-          key: z.string(),
-        }),
-      })
-    )
-    .optional(),
+  authors: z.array(
+    z
+      .union([
+        z.object({ key: z.string() }),
+        z.object({ author: z.object({ key: z.string() }) }),
+      ])
+      .transform((a) => ("author" in a ? a.author : a))
+  ),
   covers: z.array(z.number().transform((num) => num.toString())).optional(),
   description: z
     .union([
