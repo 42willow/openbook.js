@@ -25,7 +25,7 @@
     "library"
   ],
   "author": "ngoclinhphvm",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ngoclinhphvm/openbook.js/issues"
   },
