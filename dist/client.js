@@ -70,8 +70,15 @@ class OpenLibraryClient {
         const data = await this.request(`/authors/${id}.json`);
         return author_1.AuthorSchema.parse(data);
     }
-    async getAuthorWorks(id) {
-        const data = await this.request(`/authors/${id}/works.json`);
+    async getAuthorWorks(id, { limit, offset } = {}) {
+        const params = new URLSearchParams();
+        if (limit !== undefined)
+            params.set("limit", limit.toString());
+        if (offset !== undefined)
+            params.set("offset", offset.toString());
+        const query = params.toString();
+        const url = `/authors/${id}/works.json${query ? `?${query}` : ""}`;
+        const data = await this.request(url);
         return author_1.AuthorWorksResponseSchema.parse(data);
     }
     async search(params) {

@@ -13,6 +13,7 @@ import {
   AuthorSchema,
   AuthorWorksResponse,
   AuthorWorksResponseSchema,
+  AuthorWorksQuery,
 } from "./schemes/author";
 import {
   SearchRequest,
@@ -97,8 +98,19 @@ export class OpenLibraryClient {
     return AuthorSchema.parse(data);
   }
 
-  async getAuthorWorks(id: string): Promise<AuthorWorksResponse> {
-    const data = await this.request<any>(`/authors/${id}/works.json`);
+  async getAuthorWorks(
+    id: string,
+    { limit, offset }: AuthorWorksQuery = {}
+  ): Promise<AuthorWorksResponse> {
+    const params = new URLSearchParams();
+
+    if (limit !== undefined) params.set("limit", limit.toString());
+    if (offset !== undefined) params.set("offset", offset.toString());
+
+    const query = params.toString();
+    const url = `/authors/${id}/works.json${query ? `?${query}` : ""}`;
+
+    const data = await this.request<any>(url);
     return AuthorWorksResponseSchema.parse(data);
   }
 

@@ -106,6 +106,11 @@ export declare const AuthorWorksResponseSchema: z.ZodObject<{
     size: z.ZodOptional<z.ZodNumber>;
     links: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
 }, z.core.$strip>;
+export declare const AuthorWorksQuerySchema: z.ZodObject<{
+    limit: z.ZodOptional<z.ZodNumber>;
+    offset: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strip>;
 export type Author = z.infer<typeof AuthorSchema>;
 export type AuthorWorkEntry = z.infer<typeof AuthorWorkEntrySchema>;
 export type AuthorWorksResponse = z.infer<typeof AuthorWorksResponseSchema>;
+export type AuthorWorksQuery = z.infer<typeof AuthorWorksQuerySchema>;

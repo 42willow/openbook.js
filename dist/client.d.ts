@@ -1,6 +1,6 @@
 import { Work, WorkEditionResponse } from "./schemes/work";
 import { Edition } from "./schemes/edition";
-import { Author, AuthorWorksResponse } from "./schemes/author";
+import { Author, AuthorWorksResponse, AuthorWorksQuery } from "./schemes/author";
 import { SearchRequest, SearchResponse, SearchAuthorResponse } from "./schemes/search";
 export declare class OpenLibraryClient {
     private client;
@@ -22,7 +22,7 @@ export declare class OpenLibraryClient {
         isbn?: string;
     }): Promise<Edition>;
     getAuthor(id: string): Promise<Author>;
-    getAuthorWorks(id: string): Promise<AuthorWorksResponse>;
+    getAuthorWorks(id: string, { limit, offset }?: AuthorWorksQuery): Promise<AuthorWorksResponse>;
     search(params: SearchRequest): Promise<SearchResponse>;
     searchAuthors(params: SearchRequest): Promise<SearchAuthorResponse>;
 }

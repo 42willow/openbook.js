@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthorWorksResponseSchema = exports.AuthorWorkEntrySchema = exports.AuthorSchema = void 0;
+exports.AuthorWorksQuerySchema = exports.AuthorWorksResponseSchema = exports.AuthorWorkEntrySchema = exports.AuthorSchema = void 0;
 const zod_1 = require("zod");
 const work_1 = require("./work");
 exports.AuthorSchema = zod_1.z.object({
@@ -26,4 +26,8 @@ exports.AuthorWorksResponseSchema = zod_1.z.object({
     entries: zod_1.z.array(exports.AuthorWorkEntrySchema),
     size: zod_1.z.number().optional(),
     links: zod_1.z.record(zod_1.z.string(), zod_1.z.string()).optional(),
+});
+exports.AuthorWorksQuerySchema = zod_1.z.object({
+    limit: zod_1.z.number().optional(),
+    offset: zod_1.z.number().optional()
 });

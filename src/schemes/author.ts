@@ -28,6 +28,14 @@ export const AuthorWorksResponseSchema = z.object({
   links: z.record(z.string(), z.string()).optional(),
 });
 
+export const AuthorWorksQuerySchema = z.object(
+  {
+    limit: z.number().optional(),
+    offset: z.number().optional()
+  }
+)
+
 export type Author = z.infer<typeof AuthorSchema>;
 export type AuthorWorkEntry = z.infer<typeof AuthorWorkEntrySchema>;
 export type AuthorWorksResponse = z.infer<typeof AuthorWorksResponseSchema>;
+export type AuthorWorksQuery = z.infer<typeof AuthorWorksQuerySchema>;
